@@ -183,6 +183,7 @@ export default function Sidenav() {
           ))}
         </List>
         <Box sx={{ flexGrow: 1 }} />
+        {/*TODO: MainFooter properties responsive between open & closed */}
         <MainFooter />
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
