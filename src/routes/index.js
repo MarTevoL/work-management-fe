@@ -9,6 +9,8 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import AuthRequire from "./AuthRequire";
+import ProjectPage from "../pages/ProjectPage";
+import ManagerAuthRequire from "./ManagerAuthRequire";
 
 function Router() {
   return (
@@ -24,6 +26,14 @@ function Router() {
         <Route index element={<HomePage />} />
         <Route path="account" element={<AccountPage />} />
         <Route path="user/:userId" element={<UserProfilePage />} />
+        <Route
+          path="project"
+          element={
+            <ManagerAuthRequire>
+              <ProjectPage />
+            </ManagerAuthRequire>
+          }
+        />
       </Route>
       <Route element={<BlankLayout />}>
         <Route path="/login" element={<LoginPage />} />

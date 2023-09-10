@@ -7,6 +7,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { Outlet } from "react-router-dom";
 import MainHeader from "./MainHeader";
 import MainDrawer from "./MainDrawer";
+import useAuth from "../hooks/useAuth";
 
 // const MANAGER_TABS = [
 //   {
@@ -30,6 +31,7 @@ import MainDrawer from "./MainDrawer";
 
 export default function Sidenav() {
   const theme = useTheme();
+  const { user } = useAuth();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -48,7 +50,7 @@ export default function Sidenav() {
         handleDrawerClose={handleDrawerClose}
         handleDrawerOpen={handleDrawerOpen}
       />
-      <MainDrawer open={open} children={<Outlet />} />
+      <MainDrawer user={user} open={open} children={<Outlet />} />
     </Box>
   );
 }

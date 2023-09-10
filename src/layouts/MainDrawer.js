@@ -21,6 +21,7 @@ import TaskIcon from "@mui/icons-material/Task";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
 const drawerWidth = 240;
+const iconSize = 25;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -68,7 +69,45 @@ const Drawer = styled(MuiDrawer, {
     "& .MuiDrawer-paper": closedMixin(theme),
   }),
 }));
-function MainDrawer({ open, children }) {
+
+const MANAGER_TABS = [
+  {
+    value: "projects",
+    icon: <WorkIcon sx={{ fontSize: iconSize }} />,
+    // component: <ProjectPage />,
+  },
+
+  {
+    value: "Tasks",
+    icon: <TaskIcon sx={{ fontSize: iconSize }} />,
+    // component: <TaskPage />,
+  },
+  {
+    value: "Notifications",
+    icon: <NotificationsIcon sx={{ fontSize: iconSize }} />,
+    // component: <NotificationPage />,
+  },
+];
+const STAFF_TABS = [
+  {
+    value: "Tasks",
+    icon: <TaskIcon sx={{ fontSize: iconSize }} />,
+    // component: <TaskPage />,
+  },
+  {
+    value: "Notifications",
+    icon: <NotificationsIcon sx={{ fontSize: iconSize }} />,
+    // component: <NotificationPage />,
+  },
+];
+
+function MainDrawer({ user, open, children }) {
+  let tabMenu;
+  if (user.role === "Manager") {
+    tabMenu = [...MANAGER_TABS];
+  } else {
+    tabMenu = [...STAFF_TABS];
+  }
   return (
     <>
       <Drawer variant="permanent" open={open}>
@@ -76,8 +115,8 @@ function MainDrawer({ open, children }) {
         <Divider />
         <List>
           {/*TODO: change to 2 array, managerFunction & staffFunction then use user.role to check*/}
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
+          {tabMenu.map((item, index) => (
+            <ListItem key={item.value} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -92,9 +131,12 @@ function MainDrawer({ open, children }) {
                     justifyContent: "center",
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {item.icon}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText
+                  primary={item.value}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
               </ListItemButton>
             </ListItem>
           ))}

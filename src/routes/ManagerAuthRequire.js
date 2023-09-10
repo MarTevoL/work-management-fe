@@ -1,0 +1,23 @@
+import React from "react";
+import useAuth from "../hooks/useAuth";
+import { Navigate, useLocation } from "react-router-dom";
+import LoadingScreen from "../components/LoadingScreen";
+
+function ManagerAuthRequire({ children }) {
+  const { user, isInitialized, isAuthenticated } = useAuth();
+  const location = useLocation();
+
+  if (!isInitialized) {
+    return <LoadingScreen />;
+  }
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+  if (user.role !== "Manager") {
+    return <Navigate to="*" replace />;
+  }
+
+  return children;
+}
+
+export default ManagerAuthRequire;
