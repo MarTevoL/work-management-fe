@@ -1,7 +1,7 @@
+import React, { useState } from "react";
 import { Stack } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
-import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -14,11 +14,18 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import LogoutIcon from "@mui/icons-material/Logout";
 import MainFooter from "./MainFooter";
-import MainHeader from "./MainHeader";
 import WorkIcon from "@mui/icons-material/Work";
 import TaskIcon from "@mui/icons-material/Task";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import ProjectPage from "../pages/ProjectPage";
+import TaskPage from "../pages/TaskPage";
+import NotificationPage from "../pages/NotificationPage";
+import { capitalCase } from "change-case";
+import useAuth from "../hooks/useAuth";
 
 const drawerWidth = 240;
 const iconSize = 25;
@@ -72,56 +79,101 @@ const Drawer = styled(MuiDrawer, {
 
 const MANAGER_TABS = [
   {
-    value: "projects",
+    path: "project",
+    title: "Projects",
     icon: <WorkIcon sx={{ fontSize: iconSize }} />,
-    // component: <ProjectPage />,
+    component: <ProjectPage />,
   },
 
   {
-    value: "Tasks",
+    path: "task",
+    title: "Tasks",
     icon: <TaskIcon sx={{ fontSize: iconSize }} />,
-    // component: <TaskPage />,
+    component: <TaskPage />,
   },
   {
-    value: "Notifications",
+    path: "notification",
+    title: "Notifications",
     icon: <NotificationsIcon sx={{ fontSize: iconSize }} />,
-    // component: <NotificationPage />,
+    component: <NotificationPage />,
   },
 ];
 const STAFF_TABS = [
   {
-    value: "Tasks",
+    path: "task",
+    title: "Tasks",
     icon: <TaskIcon sx={{ fontSize: iconSize }} />,
     // component: <TaskPage />,
   },
   {
-    value: "Notifications",
+    path: "notification",
+    title: "Notifications",
     icon: <NotificationsIcon sx={{ fontSize: iconSize }} />,
     // component: <NotificationPage />,
   },
 ];
 
-function MainDrawer({ user, open, children }) {
+const SETTING_TABS = [
+  {
+    path: "user/",
+    title: "My Profile",
+    icon: <AccountCircleIcon sx={{ fontSize: iconSize }} />,
+    // component: <TaskPage />,
+  },
+  {
+    path: "account",
+    title: "Account Setting",
+    icon: <ManageAccountsIcon sx={{ fontSize: iconSize }} />,
+    // component: <NotificationPage />,
+  },
+  {
+    path: "",
+    title: "Logout",
+    icon: <LogoutIcon sx={{ fontSize: iconSize }} />,
+    // component: <NotificationPage />,
+  },
+];
+function MainDrawer({ open, children }) {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
   let tabMenu;
   if (user.role === "Manager") {
     tabMenu = [...MANAGER_TABS];
   } else {
     tabMenu = [...STAFF_TABS];
   }
+
+  const handleChangeTab = (newValue) => {
+    navigate(`/${newValue}`);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout(() => {
+        navigate("/login");
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader></DrawerHeader>
         <Divider />
         <List>
-          {/*TODO: change to 2 array, managerFunction & staffFunction then use user.role to check*/}
           {tabMenu.map((item, index) => (
-            <ListItem key={item.value} disablePadding sx={{ display: "block" }}>
+            <ListItem key={index} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? "initial" : "center",
                   px: 2.5,
+                }}
+                onClick={() => {
+                  handleChangeTab(item.path);
                 }}
               >
                 <ListItemIcon
@@ -134,7 +186,7 @@ function MainDrawer({ user, open, children }) {
                   {item.icon}
                 </ListItemIcon>
                 <ListItemText
-                  primary={item.value}
+                  primary={item.title}
                   sx={{ opacity: open ? 1 : 0 }}
                 />
               </ListItemButton>
@@ -143,14 +195,22 @@ function MainDrawer({ user, open, children }) {
         </List>
         <Divider />
         <List>
-          {/*TODO: change to array user setting*/}
-          {["My Profile", "Account Setting", "Logout"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
+          {SETTING_TABS.map((item, index) => (
+            <ListItem key={index} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? "initial" : "center",
                   px: 2.5,
+                }}
+                onClick={() => {
+                  if (item.title === "Logout") {
+                    handleLogout();
+                  } else if (item.title === "My Profile") {
+                    handleChangeTab(`${item.path}${user._id}`);
+                  } else {
+                    handleChangeTab(item.path);
+                  }
                 }}
               >
                 <ListItemIcon
@@ -160,9 +220,14 @@ function MainDrawer({ user, open, children }) {
                     justifyContent: "center",
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {item.icon}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+
+                {/*TODO: add move logout into App setting popup button */}
+                <ListItemText
+                  primary={item.title}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
               </ListItemButton>
             </ListItem>
           ))}
