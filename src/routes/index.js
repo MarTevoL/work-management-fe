@@ -13,6 +13,8 @@ import ProjectPage from "../pages/ProjectPage";
 import ManagerAuthRequire from "./ManagerAuthRequire";
 import TaskPage from "../pages/TaskPage";
 import NotificationPage from "../pages/NotificationPage";
+import ProjectDetailPage from "../pages/ProjectDetailPage";
+import TaskDetailPage from "../pages/TaskDetailPage";
 
 function Router() {
   return (
@@ -28,6 +30,7 @@ function Router() {
         <Route index element={<HomePage />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/task" element={<TaskPage />} />
+        <Route path="/task/:taskId" element={<TaskDetailPage />} />
         <Route path="/notification" element={<NotificationPage />} />
         <Route path="/user/:userId" element={<UserProfilePage />} />
         <Route
@@ -38,7 +41,16 @@ function Router() {
             </ManagerAuthRequire>
           }
         />
+        <Route
+          path="/project/:projectId"
+          element={
+            <ManagerAuthRequire>
+              <ProjectDetailPage />
+            </ManagerAuthRequire>
+          }
+        />
       </Route>
+
       <Route element={<BlankLayout />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

@@ -9,29 +9,8 @@ import MainHeader from "./MainHeader";
 import MainDrawer from "./MainDrawer";
 import useAuth from "../hooks/useAuth";
 
-// const MANAGER_TABS = [
-//   {
-//     value: "projects",
-//     icon: <WorkIcon sx={{ fontSize: 20 }} />,
-//     component: <ProjectPage />,
-//   },
-
-//   {
-//     value: "Tasks",
-//     icon: <TaskIcon sx={{ fontSize: 20 }} />,
-//     component: <TaskPage />,
-//   },
-//   {
-//     value: "Notifications",
-//     icon: <NotificationsIcon sx={{ fontSize: 20 }} />,
-//     component: <NotificationPage />,
-//   },
-// ];
-// const STAFF_TABS = [];
-
 export default function Sidenav() {
   const theme = useTheme();
-  const { user } = useAuth();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -50,7 +29,7 @@ export default function Sidenav() {
         handleDrawerClose={handleDrawerClose}
         handleDrawerOpen={handleDrawerOpen}
       />
-      <MainDrawer user={user} open={open} children={<Outlet />} />
+      <MainDrawer open={open} children={<Outlet />} />
     </Box>
   );
 }

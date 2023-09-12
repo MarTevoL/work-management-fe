@@ -1,7 +1,8 @@
 import React from "react";
+import Task from "../features/task/Task";
 
 function TaskPage() {
-  return <div>TaskPage</div>;
+  return <Task />;
 }
 
 export default TaskPage;

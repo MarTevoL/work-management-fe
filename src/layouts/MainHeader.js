@@ -30,7 +30,7 @@ const AppBar = styled(MuiAppBar, {
 
 function MainHeader({ open, handleDrawerClose, handleDrawerOpen }) {
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" color="appbar">
       <Toolbar>
         <IconButton
           color="inherit"
