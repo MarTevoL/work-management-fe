@@ -66,6 +66,10 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
     },
+    updateTaskSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+    },
   },
 });
 
@@ -135,4 +139,19 @@ export const updateTaskAssignee =
     }
   };
 
+export const updateTaskDetail =
+  ({ dueDate, priority, taskId }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await apiService.put(`/tasks/${taskId}`, {
+        dueDate,
+        priority,
+      });
+
+      dispatch(slice.actions.updateTaskSuccess({ ...response.data }));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
 export default slice.reducer;

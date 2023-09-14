@@ -70,7 +70,7 @@ function TaskView({ taskId }) {
 
           <Grid item xs={12} md={8} lg={9}>
             <Stack>
-              <TaskUpdateForm />
+              <TaskUpdateForm taskId={taskId} />
             </Stack>
           </Grid>
         </Grid>
