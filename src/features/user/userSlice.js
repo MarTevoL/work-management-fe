@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import apiService from "../../app/apiService";
 
-const USER_PER_PAGE = 6;
-
 const initialState = {
   isLoading: false,
   error: null,
