@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProjects, getAllProjectsWithPagination } from "./projectSlice";
+import { getAllProjectsWithPagination } from "./projectSlice";
 import { Container, Grid, Pagination, Stack, Typography } from "@mui/material";
 import ProjectCard from "./ProjectCard";
 
 function ProjectList() {
   const [page, setPage] = useState(1);
 
-  const {
-    currentPageProjects,
-    projectsById,
-    totalProjects,
-    totalPages,
-    isLoading,
-  } = useSelector((state) => state.project);
+  const { currentPageProjects, projectsById, totalProjects, totalPages } =
+    useSelector((state) => state.project);
 
   const dispatch = useDispatch();
 
@@ -27,7 +22,6 @@ function ProjectList() {
     <Container>
       <Stack spacing={2}>
         <Stack direction={{ xs: "column", md: "row" }} alignItems="center">
-          {/* <SearchInput handleSubmit={handleSubmit} /> */}
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Project List
           </Typography>

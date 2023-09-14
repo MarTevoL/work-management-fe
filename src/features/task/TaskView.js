@@ -26,7 +26,6 @@ function TaskView({ taskId }) {
   }, [dispatch]);
 
   const task = tasksById[taskId];
-  let assignee;
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -60,14 +59,6 @@ function TaskView({ taskId }) {
                   role={userById[task.assignee].role}
                 />
               ) : (
-                // <Grid item xs={12} md={8} lg={9}>
-                //   {/**TODO: decor user card*/}
-                //   <Paper>
-                //     <Typography>{userById[task.assignee]?.name}</Typography>
-                //     {userById[task.assignee]?.email}
-                //     {userById[task.assignee]?.role}
-                //   </Paper>
-                // </Grid>
                 <Box>
                   <Typography>No assignee for this task</Typography>
                   <TaskAssign taskId={taskId} />

@@ -1,14 +1,13 @@
-import { Box, Card, MenuItem, Stack, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import React, { useEffect } from "react";
-import { FormProvider, FSelect, FTextField } from "../../components/form";
+import { FormProvider, FSelect } from "../../components/form";
 import { LoadingButton } from "@mui/lab";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { createTask, updateTaskAssignee } from "./taskSlice";
-import { getProjects } from "../project/projectSlice";
-import { getAllStaffs, getAllUsers } from "../user/userSlice";
+import { updateTaskAssignee } from "./taskSlice";
+import { getAllUsers } from "../user/userSlice";
 
 const yupSchema = Yup.object().shape({
   assigneeId: Yup.string().required("assignee is required"),
@@ -32,8 +31,6 @@ function TaskAssign({ taskId }) {
 
   const {
     handleSubmit,
-    reset,
-    setValue,
     formState: { isSubmitting },
   } = methods;
 

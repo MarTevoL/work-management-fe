@@ -1,15 +1,6 @@
 import React from "react";
-import {
-  Box,
-  Card,
-  Icon,
-  IconButton,
-  Link,
-  Tooltip,
-  Typography,
-  styled,
-} from "@mui/material";
-import { Navigate, Link as RouterLink } from "react-router-dom";
+import { Box, Card, Link, Typography, styled } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 const StyledCard = styled(Card)(({ theme }) => ({
   display: "flex",

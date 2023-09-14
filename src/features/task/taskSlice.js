@@ -51,7 +51,7 @@ const slice = createSlice({
     getProjectTaskSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
-      const { projectId, count, tasks, totalPages } = action.payload;
+      const { count, tasks, totalPages } = action.payload;
       tasks.forEach((task) => {
         state.tasksById[task._id] = task;
         // if (!state.currentPageTasks.includes(task._id)) {

@@ -2,9 +2,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Card, MenuItem, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { FormProvider, FSelect, FTextField } from "../../components/form";
+import { FormProvider, FTextField } from "../../components/form";
 import { LoadingButton } from "@mui/lab";
 import { createProject } from "./projectSlice";
 
@@ -30,27 +30,12 @@ function ProjectForm() {
   const {
     handleSubmit,
     reset,
-    setValue,
     formState: { isSubmitting },
   } = methods;
 
   const onSubmit = (data) => {
     dispatch(createProject(data)).then(() => reset());
   };
-  // const menu = [
-  //   <MenuItem value="250">$250</MenuItem>,
-  //   <MenuItem value="500">$500</MenuItem>,
-  //   <MenuItem value="$1000">$1000</MenuItem>,
-  // ];
-  {
-    /**TODO: add status to project */
-  }
-  // const statusList = [
-  //   { value: "Open", title: "Open" },
-  //   { value: "Review", title: "Review" },
-  //   { value: "Development", title: "Development" },
-  //   { value: "Closed", title: "Closed" },
-  // ];
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>

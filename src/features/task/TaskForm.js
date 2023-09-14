@@ -1,4 +1,4 @@
-import { Box, Card, MenuItem, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { FormProvider, FSelect, FTextField } from "../../components/form";
 import { LoadingButton } from "@mui/lab";
@@ -22,9 +22,6 @@ const defaultValues = {
   assignee: "",
   dueDate: "",
 };
-{
-  /**TODO: create add with priority status assignee dueDate */
-}
 function TaskForm() {
   const { isLoading } = useSelector((state) => state.task);
 
@@ -44,7 +41,6 @@ function TaskForm() {
   const {
     handleSubmit,
     reset,
-    setValue,
     formState: { isSubmitting },
   } = methods;
 

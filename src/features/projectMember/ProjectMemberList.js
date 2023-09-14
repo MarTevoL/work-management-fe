@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
-  Card,
   CircularProgress,
   Container,
   Grid,
@@ -12,9 +11,6 @@ import {
 } from "@mui/material";
 import { getProjectMember } from "./projectMemberSlice";
 import { getAllUsers } from "../user/userSlice";
-{
-  /**TODO: fix redux state */
-}
 function ProjectMemberList({ projectId }) {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
@@ -52,7 +48,6 @@ function ProjectMemberList({ projectId }) {
         <Box>
           <Stack spacing={2}>
             <Stack direction={{ xs: "column", md: "row" }} alignItems="center">
-              {/* <SearchInput handleSubmit={handleSubmit} /> */}
               <Typography variant="h8" sx={{ flexGrow: 1 }}>
                 Assignee List
               </Typography>

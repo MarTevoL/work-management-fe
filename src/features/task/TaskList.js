@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Box,
-  Card,
-  Container,
-  Grid,
-  Pagination,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Container, Grid, Pagination, Stack, Typography } from "@mui/material";
 import { getTasks } from "./taskSlice";
-import useAuth from "../../hooks/useAuth";
 import TaskCard from "./TaskCard";
 
 function TaskList() {
