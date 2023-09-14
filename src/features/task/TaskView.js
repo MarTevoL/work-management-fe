@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../user/userSlice";
 import TaskUpdateForm from "./TaskUpdateForm";
 import TaskAssign from "./TaskAssign";
+import TaskAssigneeCard from "./TaskAssigneeCard";
 
 function TaskView({ taskId }) {
   const { tasksById, isLoading } = useSelector((state) => state.task);
@@ -25,6 +26,8 @@ function TaskView({ taskId }) {
   }, [dispatch]);
 
   const task = tasksById[taskId];
+  let assignee;
+
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       {isLoading ? (
@@ -51,15 +54,20 @@ function TaskView({ taskId }) {
               <TaskCard task={task} />
               <Typography>Assignee</Typography>
               {task.assignee ? (
-                <Grid item xs={12} md={8} lg={9}>
-                  {/**TODO: decor user card*/}
-                  <Paper>
-                    <Typography>{userById[task.assignee]?.name}</Typography>
-                    {userById[task.assignee]?.email}
-                    {userById[task.assignee]?.role}
-                  </Paper>
-                </Grid>
+                <TaskAssigneeCard
+                  name={userById[task.assignee].name}
+                  email={userById[task.assignee].email}
+                  role={userById[task.assignee].role}
+                />
               ) : (
+                // <Grid item xs={12} md={8} lg={9}>
+                //   {/**TODO: decor user card*/}
+                //   <Paper>
+                //     <Typography>{userById[task.assignee]?.name}</Typography>
+                //     {userById[task.assignee]?.email}
+                //     {userById[task.assignee]?.role}
+                //   </Paper>
+                // </Grid>
                 <Box>
                   <Typography>No assignee for this task</Typography>
                   <TaskAssign taskId={taskId} />
