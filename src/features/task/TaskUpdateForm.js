@@ -39,8 +39,8 @@ function TaskUpdateForm({ taskId }) {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={2}>
-        <Typography variant="subtitle2" sx={{ mb: 1 }}>
-          Update Task
+        <Typography variant="subtitle1" sx={{ mb: 1 }}>
+          Update Priority & Due Date
         </Typography>
         <FSelect
           name="priority"

@@ -24,13 +24,7 @@ function Task() {
             <TaskList />
           </Stack>
         </Grid>
-        <Grid item xs={12}>
-          <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-            Order
-          </Paper>
-        </Grid>
       </Grid>
-      Copyright
     </Container>
   );
 }
