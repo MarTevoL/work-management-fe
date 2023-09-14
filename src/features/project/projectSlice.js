@@ -53,10 +53,8 @@ const slice = createSlice({
       const { count, projects, totalPages } = action.payload;
       projects.forEach((proj) => {
         state.projectsById[proj._id] = proj;
-        if (!state.currentPageProjects.includes(proj._id)) {
-          state.currentPageProjects.push(proj._id);
-        }
       });
+      state.currentPageProjects = projects.map((project) => project._id);
       state.totalProjects = count;
       state.totalPages = totalPages;
     },
@@ -78,30 +76,31 @@ export const createProject =
     }
   };
 
-export const getProjects =
-  ({ page, limit = PROJECT_PER_PAGE }) =>
-  async (dispatch) => {
-    dispatch(slice.actions.startLoading());
-    try {
-      const params = { page, limit };
-      const response = await apiService.get(`/projects`, {
-        params,
-      });
-      // if (page === 1) dispatch(slice.actions.resetProjects());
-
-      dispatch(slice.actions.getProjectSuccess(response.data));
-    } catch (error) {
-      dispatch(slice.actions.hasError(error.message));
-    }
-  };
-export const getAllProjects = () => async (dispatch) => {
+export const getProjects = () => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
     const response = await apiService.get(`/projects`);
+    // if (page === 1) dispatch(slice.actions.resetProjects());
 
-    dispatch(slice.actions.getAllProjectSuccess(response.data));
+    dispatch(slice.actions.getProjectSuccess(response.data));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
   }
 };
+
+export const getAllProjectsWithPagination =
+  ({ page = 1, limit = PROJECT_PER_PAGE }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+
+    try {
+      const params = { page: page, limit: limit };
+
+      const response = await apiService.get(`/projects`, { params });
+
+      dispatch(slice.actions.getAllProjectSuccess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
 export default slice.reducer;

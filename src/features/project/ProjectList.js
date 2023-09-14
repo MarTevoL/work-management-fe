@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProjects } from "./projectSlice";
-import {
-  Box,
-  Card,
-  Container,
-  Grid,
-  Pagination,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { getAllProjects, getAllProjectsWithPagination } from "./projectSlice";
+import { Container, Grid, Pagination, Stack, Typography } from "@mui/material";
 import ProjectCard from "./ProjectCard";
 
 function ProjectList() {
@@ -28,46 +20,43 @@ function ProjectList() {
   const projects = currentPageProjects.map((id) => projectsById[id]);
 
   useEffect(() => {
-    dispatch(getProjects({ page }));
+    dispatch(getAllProjectsWithPagination({ page }));
   }, [dispatch, page]);
 
   return (
     <Container>
-      <Typography variant="h8" sx={{ mb: 3 }}>
-        Project List
-      </Typography>
-      <Card sx={{ p: 3 }}>
-        <Stack spacing={2}>
-          <Stack direction={{ xs: "column", md: "row" }} alignItems="center">
-            {/* <SearchInput handleSubmit={handleSubmit} /> */}
-            <Box sx={{ flexGrow: 1 }} />
-            <Typography
-              variant="subtitle"
-              sx={{ color: "text.secondary", ml: 1 }}
-            >
-              {totalProjects > 1
-                ? `${totalProjects} projects found`
-                : totalProjects === 1
-                ? `${totalProjects} project found`
-                : "No project found"}
-            </Typography>
+      <Stack spacing={2}>
+        <Stack direction={{ xs: "column", md: "row" }} alignItems="center">
+          {/* <SearchInput handleSubmit={handleSubmit} /> */}
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+            Project List
+          </Typography>
+          <Typography
+            variant="subtitle"
+            sx={{ color: "text.secondary", ml: 1 }}
+          >
+            {totalProjects > 1
+              ? `${totalProjects} projects found`
+              : totalProjects === 1
+              ? `${totalProjects} project found`
+              : "No project found"}
+          </Typography>
 
-            <Pagination
-              count={totalPages}
-              page={page}
-              onChange={(e, page) => setPage(page)}
-            />
-          </Stack>
+          <Pagination
+            count={totalPages}
+            page={page}
+            onChange={(e, page) => setPage(page)}
+          />
         </Stack>
+      </Stack>
 
-        <Grid container spacing={3} my={1}>
-          {projects.map((project) => (
-            <Grid key={project._id} item xs={12} md={4}>
-              <ProjectCard project={project} />
-            </Grid>
-          ))}
-        </Grid>
-      </Card>
+      <Grid container spacing={3} my={1}>
+        {projects.map((project) => (
+          <Grid item key={project._id} xs={12} md={4}>
+            <ProjectCard project={project} />
+          </Grid>
+        ))}
+      </Grid>
     </Container>
   );
 }

@@ -6,6 +6,7 @@ const TASK_PER_PAGE = 6;
 const initialState = {
   isLoading: false,
   error: null,
+  tasksByProject: {},
   tasksById: {},
   currentPageTasks: [],
   totalTasks: 0,
@@ -47,6 +48,24 @@ const slice = createSlice({
       state.totalTasks = count;
       state.totalPages = totalPages;
     },
+    getProjectTaskSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const { projectId, count, tasks, totalPages } = action.payload;
+      tasks.forEach((task) => {
+        state.tasksById[task._id] = task;
+        // if (!state.currentPageTasks.includes(task._id)) {
+        //   state.currentPageTasks.push(task._id);
+        // }
+      });
+      state.currentPageTasks = tasks.map((task) => task._id);
+      state.totalTasks = count;
+      state.totalPages = totalPages;
+    },
+    updateAssigneeTaskSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+    },
   },
 });
 
@@ -82,4 +101,38 @@ export const getTasks =
       dispatch(slice.actions.hasError(error.message));
     }
   };
+
+export const getProjectTasks =
+  ({ projectId, page, limit = TASK_PER_PAGE }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const params = { page, limit };
+      const response = await apiService.get(`/tasks/project/${projectId}`, {
+        params,
+      });
+
+      dispatch(
+        slice.actions.getProjectTaskSuccess({ ...response.data, projectId })
+      );
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
+
+export const updateTaskAssignee =
+  ({ assigneeId, taskId }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await apiService.put(`/tasks/${taskId}/assign`, {
+        assigneeId,
+      });
+
+      dispatch(slice.actions.updateAssigneeTaskSuccess({ ...response.data }));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
+
 export default slice.reducer;

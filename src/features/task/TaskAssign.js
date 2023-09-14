@@ -6,36 +6,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { createTask } from "./taskSlice";
+import { createTask, updateTaskAssignee } from "./taskSlice";
 import { getProjects } from "../project/projectSlice";
+import { getAllStaffs, getAllUsers } from "../user/userSlice";
 
 const yupSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
-  description: Yup.string().required("Description is required"),
+  assigneeId: Yup.string().required("assignee is required"),
 });
 
-const defaultValues = {
-  title: "",
-  description: "",
-  projectId: "",
-  priority: "",
-  assignee: "",
-  dueDate: "",
-};
-{
-  /**TODO: create add with priority status assignee dueDate */
-}
-function TaskForm() {
+function TaskAssign({ taskId }) {
+  const { currentPageUser, userById } = useSelector((state) => state.user);
   const { isLoading } = useSelector((state) => state.task);
-
-  const { currentPageProjects, projectsById } = useSelector(
-    (state) => state.project
-  );
 
   const dispatch = useDispatch();
 
-  const projects = currentPageProjects.map((id) => projectsById[id]);
-
+  const users = currentPageUser.map((id) => userById[id]);
+  console.log(taskId);
+  const defaultValues = {
+    taskId,
+  };
   const methods = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues,
@@ -48,30 +37,26 @@ function TaskForm() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = (data) => {
-    dispatch(createTask(data)).then(() => reset());
-  };
-
   useEffect(() => {
-    dispatch(getProjects());
+    dispatch(getAllUsers());
   }, [dispatch]);
+
+  const onSubmit = (data) => {
+    dispatch(updateTaskAssignee({ ...data, taskId: taskId }));
+    console.log("data", data);
+  };
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={2}>
-        <Typography variant="subtitle2" sx={{ mb: 1 }}>
-          New Task
-        </Typography>
-        <FTextField name="title" rows={4} label="title" />
-        <FTextField name="description" label="description" />
         <FSelect
-          name="projectId"
-          label="select a project"
+          name="assigneeId"
+          label="select a staff"
           InputLabelProps={{ shrink: true }}
         >
-          {projects.map((proj) => (
-            <option key={proj._id} value={`${proj._id}`}>
-              {proj.title}
+          {users.map((user) => (
+            <option key={user._id} value={`${user._id}`}>
+              {user.name}
             </option>
           ))}
         </FSelect>
@@ -97,4 +82,4 @@ function TaskForm() {
   );
 }
 
-export default TaskForm;
+export default TaskAssign;

@@ -53,7 +53,7 @@ const GREY = {
   500_80: alpha("#919EAB", 0.8),
 };
 const APPBAR = {
-  main: "#E7F8F6",
+  main: "#8fbc8f",
 };
 
 function ThemeProvider({ children }) {
@@ -64,10 +64,10 @@ function ThemeProvider({ children }) {
       success: SUCCESS,
       appbar: APPBAR,
       text: { primary: GREY[800], secondary: GREY[600], disabled: GREY[500] },
-      background: { paper: "#fff", default: "#fff", neutral: GREY[200] },
+      background: { paper: "#fffffa", default: "#f5fffa", neutral: GREY[200] },
       action: {
         active: GREY[600],
-        hover: GREY[500_8],
+        hover: GREY[500_16],
         selected: GREY[500_16],
         disabled: GREY[500_80],
         disabledBackground: GREY[500_24],

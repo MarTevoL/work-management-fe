@@ -53,35 +53,33 @@ function ProjectForm() {
   // ];
 
   return (
-    <Card sx={{ p: 3 }}>
-      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={2}>
-          <Typography variant="h8" sx={{ mb: 3 }}>
-            New Project
-          </Typography>
+    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+      <Stack spacing={2}>
+        <Typography variant="subtitle2" sx={{ mb: 1 }}>
+          New Project
+        </Typography>
 
-          <FTextField name="title" rows={4} placeholder="Project title" />
-          <FTextField name="description" label="Project description" />
-          {/* <FSelect name="chose" children={menu} /> */}
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-            }}
+        <FTextField name="title" label="title" />
+        <FTextField name="description" label="description" />
+        {/* <FSelect name="chose" children={menu} /> */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+          }}
+        >
+          <LoadingButton
+            type="submit"
+            variant="outlined"
+            size="small"
+            loading={isSubmitting || isLoading}
           >
-            <LoadingButton
-              type="submit"
-              variant="contained"
-              size="small"
-              loading={isSubmitting || isLoading}
-            >
-              Create
-            </LoadingButton>
-          </Box>
-        </Stack>
-      </FormProvider>
-    </Card>
+            Create
+          </LoadingButton>
+        </Box>
+      </Stack>
+    </FormProvider>
   );
 }
 

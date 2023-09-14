@@ -30,10 +30,11 @@ const slice = createSlice({
       const { count, members, totalPages } = action.payload;
       members.forEach((member) => {
         state.memberById[member._id] = member;
-        if (!state.currentPageMember.includes(member._id)) {
-          state.currentPageMember.push(member._id);
-        }
+        // if (!state.currentPageMember.includes(member._id)) {
+        //   state.currentPageMember.push(member._id);
+        // }
       });
+      state.currentPageMember = members.map((mem) => mem._id);
       state.totalMembers = count;
       state.totalPages = totalPages;
     },
@@ -45,10 +46,14 @@ export const getProjectMember =
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const params = { page, limit };
-      const response = await apiService.get(`/members/${projectId}`, {
-        params,
-      });
+      const params = { page: page, limit: limit };
+
+      const response = await apiService.get(
+        `/projectMembers/members/${projectId}`,
+        {
+          params,
+        }
+      );
 
       dispatch(slice.actions.getMemberSuccess(response.data));
     } catch (error) {

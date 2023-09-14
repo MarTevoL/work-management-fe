@@ -1,21 +1,40 @@
 import React from "react";
 import ProjectCard from "./ProjectCard";
 import { useSelector } from "react-redux";
-import { Grid, Typography } from "@mui/material";
+import { Container, Grid, Paper, Stack, Typography } from "@mui/material";
+import ProjectMemberList from "../projectMember/ProjectMemberList";
+import ProjectTaskList from "./ProjectTaskList";
 
 function ProjectView({ projectId }) {
   const { projectsById } = useSelector((state) => state.project);
 
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12} md={6} xl={4}>
-        <ProjectCard project={projectsById[projectId]} />
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={4} lg={3}>
+          <Paper
+            sx={{
+              p: 2,
+              display: "flex",
+              flexDirection: "column",
+              height: 240,
+            }}
+          >
+            <ProjectCard project={projectsById[projectId]} />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={8} lg={9}>
+          <Stack>
+            <ProjectTaskList projectId={projectId} />
+          </Stack>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+            <ProjectMemberList projectId={projectId} />
+          </Paper>
+        </Grid>
       </Grid>
-
-      <Grid item>
-        <Typography>Assginee</Typography>
-      </Grid>
-    </Grid>
+    </Container>
   );
 }
 

@@ -9,11 +9,13 @@ import * as Yup from "yup";
 
 import {
   Alert,
+  Box,
   Container,
   IconButton,
   InputAdornment,
   Link,
   Stack,
+  Typography,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -75,6 +77,20 @@ function LoginPage() {
             </Link>
           </Alert>
 
+          <Alert severity="success">
+            Demo manager account
+            <Box>
+              <Typography>email: 1@manager.com</Typography>
+              <Typography>password: 123</Typography>
+            </Box>
+          </Alert>
+          <Alert severity="success">
+            Demo user account
+            <Box>
+              <Typography>email: 1@user.com</Typography>
+              <Typography>password: 123</Typography>
+            </Box>
+          </Alert>
           <FTextField name="email" label="Email address" />
 
           <FTextField

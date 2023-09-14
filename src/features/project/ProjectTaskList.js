@@ -10,31 +10,21 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { getProjectMember } from "./projectMemberSlice";
-import { getAllUsers } from "../user/userSlice";
-{
-  /**TODO: fix redux state */
-}
-function ProjectMemberList({ projectId }) {
+import { getProjectTasks } from "../task/taskSlice";
+import TaskCard from "../task/TaskCard";
+
+function ProjectTaskList({ projectId }) {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 
-  const { currentPageMember, memberById, totalMembers, totalPages, isLoading } =
-    useSelector((state) => state.projectMember);
+  const { currentPageTasks, tasksById, totalTasks, totalPages, isLoading } =
+    useSelector((state) => state.task);
 
-  const { userById } = useSelector((state) => state.user);
+  const tasks = currentPageTasks.map((id) => tasksById[id]);
 
-  console.log("current", currentPageMember);
-  const members = currentPageMember.map((id) => memberById[id]);
-
-  console.log("member", members);
   useEffect(() => {
-    dispatch(getProjectMember({ page, projectId }));
+    dispatch(getProjectTasks({ projectId, page }));
   }, [dispatch, page, projectId]);
-
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
 
   return (
     <Container>
@@ -49,22 +39,22 @@ function ProjectMemberList({ projectId }) {
           <CircularProgress />
         </Box>
       ) : (
-        <Box>
+        <Card sx={{ p: 3 }}>
           <Stack spacing={2}>
             <Stack direction={{ xs: "column", md: "row" }} alignItems="center">
               {/* <SearchInput handleSubmit={handleSubmit} /> */}
               <Typography variant="h8" sx={{ flexGrow: 1 }}>
-                Assignee List
+                Project's Task List
               </Typography>
               <Typography
                 variant="subtitle"
                 sx={{ color: "text.secondary", ml: 1 }}
               >
-                {totalMembers > 1
-                  ? `${totalMembers} assignees found`
-                  : totalMembers === 1
-                  ? `${totalMembers} assignee found`
-                  : "No assignee found"}
+                {totalTasks > 1
+                  ? `${totalTasks} tasks found`
+                  : totalTasks === 1
+                  ? `${totalTasks} task found`
+                  : "No task found"}
               </Typography>
 
               <Pagination
@@ -76,16 +66,16 @@ function ProjectMemberList({ projectId }) {
           </Stack>
 
           <Grid container spacing={3} my={1}>
-            {members.map((member) => (
-              <Grid key={member._id} item xs={12} md={4}>
-                <Typography>{userById[member.userId].name}</Typography>
+            {tasks.map((task) => (
+              <Grid key={task._id} item xs={12} md={4}>
+                <TaskCard task={task} />
               </Grid>
             ))}
           </Grid>
-        </Box>
+        </Card>
       )}
     </Container>
   );
 }
 
-export default ProjectMemberList;
+export default ProjectTaskList;
