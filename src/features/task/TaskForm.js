@@ -50,7 +50,11 @@ function TaskForm() {
 
   useEffect(() => {
     dispatch(getProjects());
-  }, [dispatch]);
+
+    if (currentPageProjects.length > 0) {
+      reset({ ...defaultValues, projectId: currentPageProjects[0] });
+    }
+  }, [dispatch, currentPageProjects, reset]);
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>

@@ -9,6 +9,11 @@ import * as Yup from "yup";
 import { updateTaskAssignee } from "./taskSlice";
 import { getAllUsers } from "../user/userSlice";
 
+const defaultValues = {
+  assigneeId: "",
+  taskId: "",
+};
+
 const yupSchema = Yup.object().shape({
   assigneeId: Yup.string().required("assignee is required"),
 });
@@ -20,10 +25,7 @@ function TaskAssign({ taskId }) {
   const dispatch = useDispatch();
 
   const users = currentPageUser.map((id) => userById[id]);
-  console.log(taskId);
-  const defaultValues = {
-    taskId,
-  };
+
   const methods = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues,
@@ -31,17 +33,21 @@ function TaskAssign({ taskId }) {
 
   const {
     handleSubmit,
+    reset,
     formState: { isSubmitting },
   } = methods;
-
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
 
   const onSubmit = (data) => {
     dispatch(updateTaskAssignee({ ...data, taskId: taskId }));
     console.log("data", data);
   };
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+    if (currentPageUser.length > 0) {
+      reset({ ...defaultValues, assigneeId: currentPageUser[0] });
+    }
+  }, [dispatch, reset, currentPageUser]);
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>

@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormProvider, FSelect } from "../../components/form";
 import { LoadingButton } from "@mui/lab";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +17,7 @@ const defaultValues = {
 function TaskUpdateForm({ taskId }) {
   const { isLoading } = useSelector((state) => state.task);
 
-  const [dayValue, setDayValue] = useState(dayjs());
+  const [dayValue, setDayValue] = useState(dayjs().add(2, "day"));
 
   const dispatch = useDispatch();
 
@@ -29,12 +29,17 @@ function TaskUpdateForm({ taskId }) {
 
   const {
     handleSubmit,
+    setValue,
     formState: { isSubmitting },
   } = methods;
 
   const onSubmit = (data) => {
     dispatch(updateTaskDetail({ ...data, dueDate: dayValue, taskId: taskId }));
   };
+
+  useEffect(() => {
+    setValue("priority", "Urgent");
+  });
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
