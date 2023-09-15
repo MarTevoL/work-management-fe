@@ -41,10 +41,11 @@ const slice = createSlice({
       const { count, tasks, totalPages } = action.payload;
       tasks.forEach((task) => {
         state.tasksById[task._id] = task;
-        if (!state.currentPageTasks.includes(task._id)) {
-          state.currentPageTasks.push(task._id);
-        }
+        // if (!state.currentPageTasks.includes(task._id)) {
+        //   state.currentPageTasks.push(task._id);
+        // }
       });
+      state.currentPageTasks = tasks.map((task) => task._id);
       state.totalTasks = count;
       state.totalPages = totalPages;
     },
@@ -90,11 +91,11 @@ export const createTask =
   };
 
 export const getTasks =
-  ({ page, limit = TASK_PER_PAGE }) =>
+  ({ page = 1, limit = TASK_PER_PAGE }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const params = { page, limit };
+      const params = { page: page, limit: limit };
       const response = await apiService.get(`/tasks`, {
         params,
       });
