@@ -16,16 +16,20 @@ import TaskUpdateForm from "./TaskUpdateForm";
 import TaskAssign from "./TaskAssign";
 import TaskAssigneeCard from "./TaskAssigneeCard";
 import { fDate } from "../../utils/formatTime";
+import useAuth from "../../hooks/useAuth";
 
 function TaskView({ taskId }) {
+  const { user } = useAuth();
   const { tasksById, isLoading } = useSelector((state) => state.task);
   const { userById } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
+    if (user.role === "Manager") {
+      dispatch(getAllUsers());
+    }
+  }, [dispatch, user]);
 
   const task = tasksById[taskId];
 
@@ -93,26 +97,29 @@ function TaskView({ taskId }) {
               </Card>
             </Stack>
           </Grid>
-
-          <Grid item xs={12} md={4} lg={3}>
-            {task.assignee ? (
-              <TaskAssigneeCard
-                name={userById[task.assignee]?.name}
-                email={userById[task.assignee]?.email}
-                role={userById[task.assignee]?.role}
-              />
-            ) : (
-              <Box>
-                <Typography>No assignee for this task</Typography>
-                <TaskAssign taskId={taskId} />
-              </Box>
-            )}
-          </Grid>
-          <Grid item xs={12} md={4} lg={3}>
-            <Stack>
-              <TaskUpdateForm taskId={taskId} />
-            </Stack>
-          </Grid>
+          {user.role === "Manager" && (
+            <>
+              <Grid item xs={12} md={4} lg={3}>
+                {task.assignee ? (
+                  <TaskAssigneeCard
+                    name={userById[task.assignee]?.name}
+                    email={userById[task.assignee]?.email}
+                    role={userById[task.assignee]?.role}
+                  />
+                ) : (
+                  <Box>
+                    <Typography>No assignee for this task</Typography>
+                    <TaskAssign taskId={taskId} />
+                  </Box>
+                )}
+              </Grid>
+              <Grid item xs={12} md={4} lg={3}>
+                <Stack>
+                  <TaskUpdateForm taskId={taskId} />
+                </Stack>
+              </Grid>
+            </>
+          )}
         </Grid>
       )}
     </Container>

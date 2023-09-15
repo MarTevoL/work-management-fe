@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Grid, Pagination, Stack, Typography } from "@mui/material";
-import { getTasks } from "./taskSlice";
+import { getTasks, getUserTasks } from "./taskSlice";
 import TaskCard from "./TaskCard";
+import useAuth from "../../hooks/useAuth";
 
 function TaskList() {
+  const { user } = useAuth();
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 
@@ -15,8 +17,12 @@ function TaskList() {
   const tasks = currentPageTasks.map((id) => tasksById[id]);
 
   useEffect(() => {
-    dispatch(getTasks({ page }));
-  }, [dispatch, page]);
+    if (user.role === "Manager") {
+      dispatch(getTasks({ page }));
+    } else {
+      dispatch(getUserTasks({ userId: user._id, page }));
+    }
+  }, [dispatch, page, user]);
 
   return (
     <Container>

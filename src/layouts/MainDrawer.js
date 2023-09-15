@@ -19,6 +19,8 @@ import ProjectPage from "../pages/ProjectPage";
 import TaskPage from "../pages/TaskPage";
 import NotificationPage from "../pages/NotificationPage";
 import useAuth from "../hooks/useAuth";
+import HomePage from "../pages/HomePage";
+import HomeIcon from "@mui/icons-material/Home";
 
 const drawerWidth = 240;
 const iconSize = 25;
@@ -72,6 +74,12 @@ const Drawer = styled(MuiDrawer, {
 
 const MANAGER_TABS = [
   {
+    path: "",
+    title: "Home",
+    icon: <HomeIcon sx={{ fontSize: iconSize }} />,
+    component: <HomePage />,
+  },
+  {
     path: "project",
     title: "Projects",
     icon: <WorkIcon sx={{ fontSize: iconSize }} />,
@@ -92,6 +100,12 @@ const MANAGER_TABS = [
   },
 ];
 const STAFF_TABS = [
+  {
+    path: "",
+    title: "Home",
+    icon: <HomeIcon sx={{ fontSize: iconSize }} />,
+    component: <HomePage />,
+  },
   {
     path: "task",
     title: "Tasks",

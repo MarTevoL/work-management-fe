@@ -105,6 +105,22 @@ export const getTasks =
       dispatch(slice.actions.hasError(error.message));
     }
   };
+export const getUserTasks =
+  ({ userId, page, limit = TASK_PER_PAGE }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const params = { page, limit };
+      const response = await apiService.get(`/tasks/${userId}`, {
+        params,
+      });
+      // if (page === 1) dispatch(slice.actions.resetProjects());
+
+      dispatch(slice.actions.getTaskSuccess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
 
 export const getProjectTasks =
   ({ projectId, page, limit = TASK_PER_PAGE }) =>
