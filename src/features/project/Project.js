@@ -7,6 +7,11 @@ function Project() {
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={3}>
+        <Grid item xs={12} md={8} lg={9}>
+          <Stack>
+            <ProjectList />
+          </Stack>
+        </Grid>
         <Grid item xs={12} md={4} lg={3}>
           <Paper
             sx={{
@@ -18,11 +23,6 @@ function Project() {
           >
             <ProjectForm />
           </Paper>
-        </Grid>
-        <Grid item xs={12} md={8} lg={9}>
-          <Stack>
-            <ProjectList />
-          </Stack>
         </Grid>
       </Grid>
     </Container>

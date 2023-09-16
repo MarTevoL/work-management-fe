@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProjectsWithPagination } from "./projectSlice";
-import { Container, Grid, Pagination, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  Pagination,
+  Stack,
+  Typography,
+} from "@mui/material";
 import ProjectCard from "./ProjectCard";
 
 function ProjectList() {
@@ -19,8 +26,8 @@ function ProjectList() {
   }, [dispatch, page]);
 
   return (
-    <Container>
-      <Stack spacing={2}>
+    <>
+      <Box>
         <Stack direction={{ xs: "column", md: "row" }} alignItems="center">
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Project List
@@ -42,16 +49,11 @@ function ProjectList() {
             onChange={(e, page) => setPage(page)}
           />
         </Stack>
-      </Stack>
-
-      <Grid container spacing={3} my={1}>
-        {projects.map((project) => (
-          <Grid item key={project._id} xs={12} md={4}>
-            <ProjectCard project={project} />
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+      </Box>
+      {projects.map((project) => (
+        <ProjectCard key={project._id} project={project} />
+      ))}
+    </>
   );
 }
 

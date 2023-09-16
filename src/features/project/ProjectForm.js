@@ -19,7 +19,7 @@ const defaultValues = {
 };
 
 function ProjectForm() {
-  const { isLoading } = useSelector((state) => state.project);
+  const { isLoading, error } = useSelector((state) => state.project);
   const dispatch = useDispatch();
 
   const methods = useForm({
@@ -44,6 +44,7 @@ function ProjectForm() {
           New Project
         </Typography>
 
+        {error ? <Typography>{`${error.message}`}</Typography> : "no error"}
         <FTextField name="title" label="title" />
         <FTextField name="description" label="description" />
         {/* <FSelect name="chose" children={menu} /> */}

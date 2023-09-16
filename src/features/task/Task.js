@@ -9,6 +9,11 @@ function Task() {
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={3}>
+        <Grid item xs={12} md={8} lg={9}>
+          <Stack>
+            <TaskList />
+          </Stack>
+        </Grid>
         {user.role === "Manager" && (
           <Grid item xs={12} md={4} lg={3}>
             <Paper
@@ -23,11 +28,6 @@ function Task() {
             </Paper>
           </Grid>
         )}
-        <Grid item xs={12} md={8} lg={9}>
-          <Stack>
-            <TaskList />
-          </Stack>
-        </Grid>
       </Grid>
     </Container>
   );
