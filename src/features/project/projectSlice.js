@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import apiService from "../../app/apiService";
 
 const PROJECT_PER_PAGE = 6;
+const INITIAL_PAGE = 1;
+const LIMIT = 99;
 
 const initialState = {
   isLoading: false,
@@ -82,7 +84,7 @@ export const createProject =
   };
 
 export const getProjects =
-  ({ page = 1, limit = 99 }) =>
+  ({ page = INITIAL_PAGE, limit = LIMIT }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {

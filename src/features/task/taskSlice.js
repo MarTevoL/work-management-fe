@@ -85,6 +85,7 @@ export const createTask =
         projectId,
       });
       dispatch(slice.actions.createTaskSuccess(response.data));
+      dispatch(getTasks({ page: 1 }));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }
