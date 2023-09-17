@@ -12,19 +12,17 @@ import { getProjects } from "../project/projectSlice";
 const yupSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
   description: Yup.string().required("Description is required"),
+  projectId: Yup.string().required("assignee is required"),
 });
 
 const defaultValues = {
   title: "",
   description: "",
   projectId: "",
-  priority: "",
-  assignee: "",
-  dueDate: "",
 };
+
 function TaskForm() {
   const { isLoading } = useSelector((state) => state.task);
-
   const { currentPageProjects, projectsById } = useSelector(
     (state) => state.project
   );
@@ -45,16 +43,16 @@ function TaskForm() {
   } = methods;
 
   const onSubmit = (data) => {
-    dispatch(createTask(data)).then(() => reset());
+    dispatch(createTask(data));
   };
 
   useEffect(() => {
     dispatch(getProjects({ page: 1 }));
 
-    // if (currentPageProjects.length > 0) {
-    //   reset({ ...defaultValues, projectId: currentPageProjects[0] });
-    // }
-  }, [dispatch]);
+    if (currentPageProjects.length > 0) {
+      reset({ ...defaultValues, projectId: currentPageProjects[0] });
+    }
+  }, [dispatch, reset, currentPageProjects]);
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>

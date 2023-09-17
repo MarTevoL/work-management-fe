@@ -39,7 +39,6 @@ function TaskAssign({ taskId }) {
 
   const onSubmit = (data) => {
     dispatch(updateTaskAssignee({ ...data, taskId: taskId }));
-    console.log("data", data);
   };
 
   useEffect(() => {

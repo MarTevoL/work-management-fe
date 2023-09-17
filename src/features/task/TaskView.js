@@ -48,14 +48,22 @@ function TaskView({ taskId }) {
       ) : (
         <Grid container spacing={3}>
           <Grid item xs={12}>
+            <Typography>Task Detail</Typography>
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
               <Stack
                 direction={{ xs: "column", md: "row" }}
                 alignItems="center"
               >
-                <Typography variant="h5" sx={{ flexGrow: 1 }}>
-                  {task.title}
-                </Typography>
+                <Box sx={{ flexGrow: 2 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary" }}
+                    noWrap
+                  >
+                    Title
+                  </Typography>
+                  <Typography variant="h5">{task.title}</Typography>
+                </Box>
                 <Box sx={{ flexGrow: 1 }}>
                   <Typography
                     variant="body2"
