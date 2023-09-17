@@ -8,19 +8,22 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
+import Badge from "@mui/material/Badge";
 import ListItemText from "@mui/material/ListItemText";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import LogoutIcon from "@mui/icons-material/Logout";
 import WorkIcon from "@mui/icons-material/Work";
 import TaskIcon from "@mui/icons-material/Task";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+
 import ProjectPage from "../pages/ProjectPage";
 import TaskPage from "../pages/TaskPage";
 import NotificationPage from "../pages/NotificationPage";
 import useAuth from "../hooks/useAuth";
 import HomePage from "../pages/HomePage";
 import HomeIcon from "@mui/icons-material/Home";
+import NotificationIcon from "./NotificationIcon";
+import { is } from "date-fns/locale";
 
 const drawerWidth = 240;
 const iconSize = 25;
@@ -95,7 +98,7 @@ const MANAGER_TABS = [
   {
     path: "notification",
     title: "Notifications",
-    icon: <NotificationsIcon sx={{ fontSize: iconSize }} />,
+    icon: <NotificationIcon iconSize={iconSize} />,
     component: <NotificationPage />,
   },
 ];
@@ -115,7 +118,7 @@ const STAFF_TABS = [
   {
     path: "notification",
     title: "Notifications",
-    icon: <NotificationsIcon sx={{ fontSize: iconSize }} />,
+    icon: <NotificationIcon sx={{ fontSize: iconSize }} />,
     // component: <NotificationPage />,
   },
 ];

@@ -24,11 +24,26 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+
+    getNotifSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const { count, notifs, totalPages } = action.payload;
+      notifs.forEach((noti) => {
+        state.notifById[noti._id] = noti;
+        // if (!state.currentPageTasks.includes(noti._id)) {
+        //   state.currentPageTasks.push(noti._id);
+        // }
+      });
+      state.currentPageNotifs = notifs.map((noti) => noti._id);
+      state.totalNotifs = count;
+      state.totalPages = totalPages;
+    },
   },
 });
 
-export const getUserTasks =
-  ({ userId, page, limit = NOTIF_PER_PAGE }) =>
+export const getUserNotifications =
+  ({ page, limit = NOTIF_PER_PAGE }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
@@ -38,7 +53,7 @@ export const getUserTasks =
       });
       // if (page === 1) dispatch(slice.actions.resetProjects());
 
-      dispatch(slice.actions.getTaskSuccess(response.data));
+      dispatch(slice.actions.getNotifSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }
