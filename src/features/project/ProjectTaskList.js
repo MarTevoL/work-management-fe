@@ -39,7 +39,7 @@ function ProjectTaskList({ projectId }) {
           <CircularProgress />
         </Box>
       ) : (
-        <Card sx={{ p: 3 }}>
+        <>
           <Stack spacing={2}>
             <Stack direction={{ xs: "column", md: "row" }} alignItems="center">
               {/* <SearchInput handleSubmit={handleSubmit} /> */}
@@ -72,7 +72,7 @@ function ProjectTaskList({ projectId }) {
               </Grid>
             ))}
           </Grid>
-        </Card>
+        </>
       )}
     </Container>
   );

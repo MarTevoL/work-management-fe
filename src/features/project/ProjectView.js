@@ -24,13 +24,13 @@ function ProjectView({ projectId }) {
           </Paper>
         </Grid>
         <Grid item xs={12} md={8} lg={9}>
-          <Stack>
-            <ProjectTaskList projectId={projectId} />
-          </Stack>
+          <Paper sx={{ p: 2 }}>
+            <ProjectMemberList projectId={projectId} />
+          </Paper>
         </Grid>
         <Grid item xs={12}>
           <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-            <ProjectMemberList projectId={projectId} />
+            <ProjectTaskList projectId={projectId} />
           </Paper>
         </Grid>
       </Grid>

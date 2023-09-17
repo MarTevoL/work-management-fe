@@ -152,6 +152,7 @@ export const updateTaskAssignee =
       });
 
       dispatch(slice.actions.updateAssigneeTaskSuccess({ ...response.data }));
+      dispatch(getTasks({ page: 1, limit: 99 }));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }
@@ -168,6 +169,7 @@ export const updateTaskDetail =
       });
 
       dispatch(slice.actions.updateTaskSuccess({ ...response.data }));
+      dispatch(getTasks({ page: 1, limit: 99 }));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }
