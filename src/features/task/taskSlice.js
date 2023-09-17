@@ -159,13 +159,14 @@ export const updateTaskAssignee =
   };
 
 export const updateTaskDetail =
-  ({ dueDate, priority, taskId }) =>
+  ({ dueDate, priority, assignee, taskId }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const response = await apiService.put(`/tasks/${taskId}`, {
         dueDate,
         priority,
+        assignee,
       });
 
       dispatch(slice.actions.updateTaskSuccess({ ...response.data }));

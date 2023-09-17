@@ -13,8 +13,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../user/userSlice";
 import TaskUpdateForm from "./TaskUpdateForm";
-import TaskAssign from "./TaskAssign";
-import TaskAssigneeCard from "./TaskAssigneeCard";
 import { fDate } from "../../utils/formatTime";
 import useAuth from "../../hooks/useAuth";
 
@@ -50,10 +48,7 @@ function TaskView({ taskId }) {
           <Grid item xs={12}>
             <Typography>Task Detail</Typography>
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-              <Stack
-                direction={{ xs: "column", md: "row" }}
-                alignItems="center"
-              >
+              <Stack direction={{ xs: "column", md: "row" }} alignItems="start">
                 <Box sx={{ flexGrow: 2 }}>
                   <Typography
                     variant="body2"
@@ -74,6 +69,20 @@ function TaskView({ taskId }) {
                   </Typography>
                   <Typography variant="h6" sx={{ flexGrow: 1 }}>
                     {task.priority ? task.priority : "no priority"}
+                  </Typography>
+                </Box>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary" }}
+                    noWrap
+                  >
+                    Assignee
+                  </Typography>
+                  <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                    {task.assignee
+                      ? userById[task.assignee]?.name
+                      : "no assignee"}
                   </Typography>
                 </Box>
                 <Box sx={{ flexGrow: 1 }}>
@@ -107,20 +116,6 @@ function TaskView({ taskId }) {
           </Grid>
           {user.role === "Manager" && (
             <>
-              <Grid item xs={12} md={4} lg={3}>
-                {task.assignee ? (
-                  <TaskAssigneeCard
-                    name={userById[task.assignee]?.name}
-                    email={userById[task.assignee]?.email}
-                    role={userById[task.assignee]?.role}
-                  />
-                ) : (
-                  <Box>
-                    <Typography>No assignee for this task</Typography>
-                    <TaskAssign taskId={taskId} />
-                  </Box>
-                )}
-              </Grid>
               <Grid item xs={12} md={4} lg={3}>
                 <Stack>
                   <TaskUpdateForm taskId={taskId} />
