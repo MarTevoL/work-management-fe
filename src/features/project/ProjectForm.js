@@ -19,7 +19,7 @@ const defaultValues = {
 };
 
 function ProjectForm() {
-  const { isLoading, error } = useSelector((state) => state.project);
+  const { isLoading } = useSelector((state) => state.project);
   const dispatch = useDispatch();
 
   const methods = useForm({

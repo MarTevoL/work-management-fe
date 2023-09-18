@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProjectsWithPagination } from "./projectSlice";
-import {
-  Box,
-  Container,
-  Grid,
-  Pagination,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Pagination, Stack, Typography } from "@mui/material";
 import ProjectCard from "./ProjectCard";
 
 function ProjectList() {

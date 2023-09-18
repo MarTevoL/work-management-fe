@@ -8,9 +8,7 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import Badge from "@mui/material/Badge";
 import ListItemText from "@mui/material/ListItemText";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import LogoutIcon from "@mui/icons-material/Logout";
 import WorkIcon from "@mui/icons-material/Work";
@@ -23,7 +21,6 @@ import useAuth from "../hooks/useAuth";
 import HomePage from "../pages/HomePage";
 import HomeIcon from "@mui/icons-material/Home";
 import NotificationIcon from "./NotificationIcon";
-import { is } from "date-fns/locale";
 
 const drawerWidth = 240;
 const iconSize = 25;

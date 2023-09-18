@@ -1,7 +1,7 @@
 import React from "react";
 import ProjectCard from "./ProjectCard";
 import { useSelector } from "react-redux";
-import { Container, Grid, Paper, Stack } from "@mui/material";
+import { Container, Grid, Paper } from "@mui/material";
 import ProjectMemberList from "../projectMember/ProjectMemberList";
 import ProjectTaskList from "./ProjectTaskList";
 

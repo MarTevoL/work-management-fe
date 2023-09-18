@@ -36,7 +36,6 @@ function TaskUpdateForm({ taskId }) {
 
   const {
     handleSubmit,
-    setValue,
     reset,
     formState: { isSubmitting },
   } = methods;

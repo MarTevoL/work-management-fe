@@ -7,7 +7,6 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import SvgIcon from "@mui/material/SvgIcon";
 import { ReactComponent as LogoIcon } from "../workin-logo.svg";
-import { Box, Typography } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -45,9 +44,6 @@ function MainHeader({ open, handleDrawerClose, handleDrawerOpen }) {
           <MenuIcon />
         </IconButton>
         <SvgIcon component={LogoIcon} inheritViewBox />
-        <Box sx={{ flexGrow: 1 }} display="flex" justifyContent="flex-end">
-          <Typography>Logo</Typography>
-        </Box>
       </Toolbar>
     </AppBar>
   );

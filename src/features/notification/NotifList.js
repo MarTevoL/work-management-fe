@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Box,
-  Chip,
-  Container,
-  Grid,
-  IconButton,
-  Pagination,
-  Stack,
-  Typography,
-} from "@mui/material";
-import useAuth from "../../hooks/useAuth";
+import { Box, Chip, Pagination, Stack, Typography } from "@mui/material";
 import {
   getUserNotifications,
   readAllNotifications,
@@ -18,8 +8,6 @@ import {
 import NotifCard from "./NotifCard";
 
 function NotifList() {
-  const { user } = useAuth();
-
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 

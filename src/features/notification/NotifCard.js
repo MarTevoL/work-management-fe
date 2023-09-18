@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Card,
-  Chip,
-  Link,
-  Stack,
-  Typography,
-  styled,
-} from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import { Box, Card, Chip, Stack, Typography, styled } from "@mui/material";
 import { readNotification } from "./notificationSlice";
 import { useDispatch } from "react-redux";
 
@@ -21,18 +12,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
   padding: "16px !important",
   background: theme.palette.background.paper,
   [theme.breakpoints.down("sm")]: { padding: "16px !important" },
-}));
-
-const ContentBox = styled(Box)(({ theme }) => ({
-  display: "flex",
-  flexWrap: "wrap",
-  alignItems: "center",
-  "& small": { color: theme.palette.text.secondary },
-  "& .icon": {
-    opacity: 0.6,
-    fontSize: "44px",
-    color: theme.palette.primary.main,
-  },
 }));
 
 const Heading = styled("h6")(({ theme }) => ({
