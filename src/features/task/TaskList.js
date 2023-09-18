@@ -53,7 +53,7 @@ function TaskList() {
 
       <Grid container spacing={3} my={1}>
         {tasks.map((task) => (
-          <Grid key={task._id} item xs={12} md={4}>
+          <Grid key={task._id} item xs={12} md={6}>
             <TaskCard task={task} key={task._id} />
           </Grid>
         ))}

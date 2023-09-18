@@ -44,7 +44,6 @@ function ProjectForm() {
           New Project
         </Typography>
 
-        {error ? <Typography>{`${error.message}`}</Typography> : "no error"}
         <FTextField name="title" label="title" />
         <FTextField name="description" label="description" />
         {/* <FSelect name="chose" children={menu} /> */}

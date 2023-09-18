@@ -125,22 +125,16 @@ const STAFF_TABS = [
 
 const SETTING_TABS = [
   {
-    path: "user/",
-    title: "My Profile",
-    icon: <AccountCircleIcon sx={{ fontSize: iconSize }} />,
-    // component: <TaskPage />,
-  },
-  {
     path: "account",
     title: "Account Setting",
     icon: <ManageAccountsIcon sx={{ fontSize: iconSize }} />,
-    // component: <NotificationPage />,
+    // Setting,
   },
   {
     path: "",
     title: "Logout",
     icon: <LogoutIcon sx={{ fontSize: iconSize }} />,
-    // component: <NotificationPage />,
+    // Logout,
   },
 ];
 function MainDrawer({ open, children }) {

@@ -1,17 +1,37 @@
-import { Container, Stack, Typography } from "@mui/material";
-import React from "react";
+import {
+  Box,
+  Card,
+  CardContent,
+  Container,
+  Stack,
+  Typography,
+} from "@mui/material";
+import React, { useEffect } from "react";
+import useAuth from "../../hooks/useAuth";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserNotifications } from "../notification/notificationSlice";
 
 function HomeNotifBox() {
+  const { user } = useAuth();
+  const dispatch = useDispatch();
+
+  const { totalNotifs } = useSelector((state) => state.notification);
+
+  useEffect(() => {
+    dispatch(getUserNotifications({ page: 1 }));
+  }, [dispatch, user]);
   return (
-    <Container>
-      <Stack>
-        <Stack direction={{ xs: "column", md: "row" }} alignItems="center">
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            Notification List
-          </Typography>
-        </Stack>
-      </Stack>
-    </Container>
+    <Box>
+      <Card>
+        <CardContent>
+          {totalNotifs ? (
+            <Typography>{`You have ${totalNotifs} notifications`}</Typography>
+          ) : (
+            <Typography>{`You don't have any notification`}</Typography>
+          )}
+        </CardContent>
+      </Card>
+    </Box>
   );
 }
 
