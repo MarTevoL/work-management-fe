@@ -1,7 +1,8 @@
 import React from "react";
+import Account from "../features/user/Account";
 
 function AccountPage() {
-  return <div>AccountPage</div>;
+  return <Account />;
 }
 
 export default AccountPage;

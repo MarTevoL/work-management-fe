@@ -21,41 +21,14 @@ function Home() {
         </Grid>
         {user.role === "Manager" && (
           <Grid item xs={12} md={4} lg={3}>
-            <Paper
-              sx={{
-                p: 2,
-                display: "flex",
-                flexDirection: "column",
-                height: 240,
-              }}
-            >
-              <HomeProjectBox />
-            </Paper>
+            <HomeProjectBox />
           </Grid>
         )}
         <Grid item xs={12} md={4} lg={3}>
-          <Paper
-            sx={{
-              p: 2,
-              display: "flex",
-              flexDirection: "column",
-              height: 240,
-            }}
-          >
-            <HomeTaskBox />
-          </Paper>
+          <HomeTaskBox />
         </Grid>
         <Grid item xs={12} md={4} lg={3}>
-          <Paper
-            sx={{
-              p: 2,
-              display: "flex",
-              flexDirection: "column",
-              height: 240,
-            }}
-          >
-            <HomeNotifBox />
-          </Paper>
+          <HomeNotifBox />
         </Grid>
       </Grid>
     </Container>

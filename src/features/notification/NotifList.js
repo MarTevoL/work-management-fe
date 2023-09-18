@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
+  Chip,
   Container,
   Grid,
   IconButton,
@@ -56,7 +57,7 @@ function NotifList() {
             page={page}
             onChange={(e, page) => setPage(page)}
           />
-          <IconButton onClick={handleReadAll}>Read All</IconButton>
+          <Chip label="read all" onDelete={handleReadAll} />
         </Stack>
       </Box>
 

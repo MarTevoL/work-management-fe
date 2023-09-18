@@ -1,6 +1,16 @@
 import React from "react";
-import { Box, Card, Link, Typography, styled } from "@mui/material";
+import {
+  Box,
+  Card,
+  Chip,
+  Link,
+  Stack,
+  Typography,
+  styled,
+} from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import { readNotification } from "./notificationSlice";
+import { useDispatch } from "react-redux";
 
 const StyledCard = styled(Card)(({ theme }) => ({
   display: "flex",
@@ -32,11 +42,21 @@ const Heading = styled("h6")(({ theme }) => ({
 }));
 
 function NotifCard({ notif }) {
-  const { title, body } = notif;
+  const { _id, title, body } = notif;
+
+  const dispatch = useDispatch();
+
+  const handleRead = (data) => {
+    dispatch(readNotification(data));
+  };
+
   return (
     <StyledCard elevation={5}>
-      <ContentBox>
-        <Box ml="12px">
+      <Stack
+        sx={{ display: "flex", alignItems: "start" }}
+        direction={{ xs: "column", md: "row" }}
+      >
+        <Box ml="12px" sx={{ flexGrow: 1 }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Typography
               variant="body2"
@@ -57,7 +77,10 @@ function NotifCard({ notif }) {
             <Heading>{body}</Heading>
           </Box>
         </Box>
-      </ContentBox>
+      </Stack>
+      <Box>
+        <Chip label="Read" onDelete={() => handleRead({ _id })} />
+      </Box>
     </StyledCard>
   );
 }

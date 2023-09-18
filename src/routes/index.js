@@ -32,7 +32,6 @@ function Router() {
         <Route path="/task" element={<TaskPage />} />
         <Route path="/task/:taskId" element={<TaskDetailPage />} />
         <Route path="/notification" element={<NotificationPage />} />
-        <Route path="/user/:userId" element={<UserProfilePage />} />
         <Route
           path="/project"
           element={

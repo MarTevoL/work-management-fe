@@ -39,7 +39,7 @@ const slice = createSlice({
       state.totalNotifs = count;
       state.totalPages = totalPages;
     },
-    readAlaNotifSuccess(state, action) {
+    readNotifSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
     },
@@ -68,11 +68,24 @@ export const readAllNotifications = () => async (dispatch) => {
   try {
     const response = await apiService.put(`/notifications/readAll`);
 
-    dispatch(slice.actions.realAllNotifSuccess(response.data));
+    dispatch(slice.actions.readNotifSuccess(response.data));
     dispatch(getUserNotifications({ page: 1 }));
   } catch (error) {
     dispatch(slice.actions.hasError(error.message));
   }
 };
 
+export const readNotification =
+  ({ _id }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await apiService.put(`/notifications/${_id}`);
+
+      dispatch(slice.actions.readNotifSuccess(response.data));
+      dispatch(getUserNotifications({ page: 1 }));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
 export default slice.reducer;
