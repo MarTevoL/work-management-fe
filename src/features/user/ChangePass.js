@@ -1,11 +1,20 @@
-import { Box, Stack, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import {
+  Box,
+  IconButton,
+  InputAdornment,
+  Stack,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { FormProvider, FSelect, FTextField } from "../../components/form";
 import { LoadingButton } from "@mui/lab";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { updateCurrentUserPassword } from "./userSlice";
 
 const defaultValues = {
   oldPass: "",
@@ -25,6 +34,10 @@ function ChangePass() {
   const { isLoading } = useSelector((state) => state.task);
   const dispatch = useDispatch();
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+
   const methods = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues,
@@ -36,7 +49,8 @@ function ChangePass() {
   } = methods;
 
   const onSubmit = (data) => {
-    // dispatch(changeUserPassword(data));
+    dispatch(updateCurrentUserPassword(data));
+    console.log(data);
   };
 
   return (
@@ -45,9 +59,63 @@ function ChangePass() {
         <Typography variant="subtitle2" sx={{ mb: 1 }}>
           Change Password
         </Typography>
-        <FTextField name="oldPass" rows={4} label="Old Password" />
-        <FTextField name="password" label="Password" />
-        <FTextField name="passwordConfirm" label="Password Confirmation" />
+        <FTextField
+          name="oldPass"
+          rows={4}
+          label="Old Password"
+          type={showOldPassword ? "text" : "password"}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShowOldPassword(!showOldPassword)}
+                  edge="end"
+                >
+                  {showOldPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+        <FTextField
+          name="password"
+          label="Password"
+          type={showPassword ? "text" : "password"}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+
+        <FTextField
+          name="passwordConfirm"
+          label="Password Confirmation"
+          type={showPasswordConfirm ? "text" : "password"}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}
+                  edge="end"
+                >
+                  {showPasswordConfirm ? (
+                    <VisibilityIcon />
+                  ) : (
+                    <VisibilityOffIcon />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
 
         <Box
           sx={{

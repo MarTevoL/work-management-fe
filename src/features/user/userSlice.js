@@ -34,6 +34,10 @@ const slice = createSlice({
       state.totalUsers = count;
       state.totalPages = totalPages;
     },
+    updatePasswordSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+    },
   },
 });
 
@@ -48,4 +52,20 @@ export const getAllUsers = () => async (dispatch) => {
   }
 };
 
+export const updateCurrentUserPassword =
+  ({ oldPass, password, passwordConfirm }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await apiService.put(`/users/resetPassword`, {
+        oldPass,
+        password,
+        passwordConfirm,
+      });
+
+      dispatch(slice.actions.updatePasswordSuccess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
 export default slice.reducer;
