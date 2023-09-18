@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Grid, Pagination, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  IconButton,
+  Pagination,
+  Stack,
+  Typography,
+} from "@mui/material";
 import useAuth from "../../hooks/useAuth";
-import { getUserNotifications } from "./notificationSlice";
+import {
+  getUserNotifications,
+  readAllNotifications,
+} from "./notificationSlice";
+import NotifCard from "./NotifCard";
 
 function NotifList() {
   const { user } = useAuth();
@@ -16,19 +28,21 @@ function NotifList() {
 
   const notifs = currentPageNotifs.map((id) => notifById[id]);
 
+  const handleReadAll = () => {
+    dispatch(readAllNotifications());
+  };
+
   useEffect(() => {
     dispatch(getUserNotifications({ page }));
   }, [dispatch, page]);
   return (
-    <Container>
-      <Stack spacing={2}>
+    <>
+      <Box marginBottom={2}>
         <Stack direction={{ xs: "column", md: "row" }} alignItems="center">
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            Notification List
-          </Typography>
           <Typography
             variant="subtitle"
             sx={{ color: "text.secondary", ml: 1 }}
+            mr={2}
           >
             {totalNotifs > 1
               ? `${totalNotifs} notifications found`
@@ -42,17 +56,14 @@ function NotifList() {
             page={page}
             onChange={(e, page) => setPage(page)}
           />
+          <IconButton onClick={handleReadAll}>Read All</IconButton>
         </Stack>
-      </Stack>
+      </Box>
 
-      <Grid container spacing={3} my={1}>
-        {notifs.map((noti) => (
-          <>
-            <Typography key={noti._id}>{noti.title}</Typography>
-          </>
-        ))}
-      </Grid>
-    </Container>
+      {notifs.map((noti) => (
+        <NotifCard key={noti._id} notif={noti} />
+      ))}
+    </>
   );
 }
 
