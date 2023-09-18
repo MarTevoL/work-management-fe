@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import apiService from "../../app/apiService";
 
 const PROJECT_PER_PAGE = 6;
@@ -78,8 +79,10 @@ export const createProject =
       });
       dispatch(slice.actions.createProjectSuccess(response.data));
       dispatch(getAllProjectsWithPagination({ page: 1 }));
+      toast.success("Create project successfully");
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
+      toast.error(error.message);
     }
   };
 

@@ -1,5 +1,4 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import commentReducer from "../features/comment/commentSlice";
 import notificationReducer from "../features/notification/notificationSlice";
 import projectReducer from "../features/project/projectSlice";
 import taskReducer from "../features/task/taskSlice";
@@ -11,7 +10,6 @@ const rootReducer = combineReducers({
   notification: notificationReducer,
   project: projectReducer,
   task: taskReducer,
-  comment: commentReducer,
   projectMember: projectMemberReducer,
 });
 

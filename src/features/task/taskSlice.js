@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import apiService from "../../app/apiService";
 
 const TASK_PER_PAGE = 6;
@@ -86,8 +87,10 @@ export const createTask =
       });
       dispatch(slice.actions.createTaskSuccess(response.data));
       dispatch(getTasks({ page: 1 }));
+      toast.success("Create task successfully");
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
+      toast.error(error.message);
     }
   };
 
@@ -105,8 +108,10 @@ export const getTasks =
       dispatch(slice.actions.getTaskSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
+      toast.error(error.message);
     }
   };
+
 export const getUserTasks =
   ({ userId, page, limit = TASK_PER_PAGE }) =>
   async (dispatch) => {
@@ -121,6 +126,7 @@ export const getUserTasks =
       dispatch(slice.actions.getTaskSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
+      toast.error(error.message);
     }
   };
 
@@ -139,6 +145,7 @@ export const getProjectTasks =
       );
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
+      toast.error(error.message);
     }
   };
 
@@ -153,8 +160,10 @@ export const updateTaskAssignee =
 
       dispatch(slice.actions.updateAssigneeTaskSuccess({ ...response.data }));
       dispatch(getTasks({ page: 1, limit: 99 }));
+      toast.success("Update task assignee successfully");
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
+      toast.error(error.message);
     }
   };
 
@@ -171,8 +180,10 @@ export const updateTaskDetail =
 
       dispatch(slice.actions.updateTaskSuccess({ ...response.data }));
       dispatch(getTasks({ page: 1, limit: 99 }));
+      toast.success("Update task successfully");
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
+      toast.error(error.message);
     }
   };
 export default slice.reducer;

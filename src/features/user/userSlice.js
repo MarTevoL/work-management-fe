@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import apiService from "../../app/apiService";
 
 const initialState = {
@@ -64,8 +65,10 @@ export const updateCurrentUserPassword =
       });
 
       dispatch(slice.actions.updatePasswordSuccess(response.data));
+      toast.success("Update password successfully");
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
+      toast.error(error.message);
     }
   };
 export default slice.reducer;
