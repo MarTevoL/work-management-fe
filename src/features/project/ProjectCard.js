@@ -25,12 +25,6 @@ const ContentBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Heading = styled("h6")(({ theme }) => ({
-  margin: 0,
-  fontSize: "14px",
-  fontWeight: "500",
-}));
-
 function ProjectCard({ project }) {
   const { _id, title, description } = project;
   return (
