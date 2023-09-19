@@ -45,7 +45,7 @@ function ProjectCard({ project }) {
         <StyledCard elevation={5}>
           <ContentBox>
             <Box ml="12px">
-              <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Box sx={{ display: "flex", alignItems: "last baseline" }}>
                 <Typography
                   variant="body2"
                   sx={{ color: "text.secondary" }}
@@ -54,7 +54,9 @@ function ProjectCard({ project }) {
                 >
                   {"Title:"}
                 </Typography>
-                <Typography>{title}</Typography>
+                <Typography variant="h6" sx={{ color: "primary.darker" }}>
+                  {title}
+                </Typography>
               </Box>
 
               <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -66,7 +68,13 @@ function ProjectCard({ project }) {
                   {"Description:"}
                 </Typography>
 
-                <Heading>{description}</Heading>
+                <Typography
+                  variant="subtitle2"
+                  sx={{ color: "primary.dark" }}
+                  noWrap
+                >
+                  {description}
+                </Typography>
               </Box>
             </Box>
           </ContentBox>

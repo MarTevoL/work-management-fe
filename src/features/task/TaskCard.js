@@ -20,10 +20,13 @@ function TaskCard({ task }) {
             flexDirection: "row",
             alignItems: "center",
             p: 2,
+            ":hover": {
+              boxShadow: 5,
+            },
           }}
         >
           <Box sx={{ flexGrow: 1, minWidth: 0, pl: 2, pr: 1 }}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box sx={{ display: "flex", alignItems: "last baseline" }}>
               <Typography
                 variant="body2"
                 sx={{ color: "text.secondary" }}
@@ -31,7 +34,10 @@ function TaskCard({ task }) {
               >
                 {"Title:"}
               </Typography>
-              {title}
+
+              <Typography variant="h6" sx={{ color: "primary.darker" }} mr={1}>
+                {title}
+              </Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography
@@ -43,7 +49,7 @@ function TaskCard({ task }) {
               </Typography>
               <Typography
                 variant="subtitle2"
-                sx={{ color: "text.secondary" }}
+                sx={{ color: "primary.dark" }}
                 noWrap
               >
                 {description}
