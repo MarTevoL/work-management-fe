@@ -87,15 +87,13 @@ function TaskUpdateForm({ taskId }) {
             </option>
           ))}
         </FSelect>
-        <Box>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label="dueDate"
-              value={dayValue}
-              onChange={(newValue) => setDayValue(newValue)}
-            />
-          </LocalizationProvider>
-        </Box>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label="dueDate"
+            value={dayValue}
+            onChange={(newValue) => setDayValue(newValue)}
+          />
+        </LocalizationProvider>
 
         <Box
           sx={{
