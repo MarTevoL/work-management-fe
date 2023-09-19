@@ -8,6 +8,7 @@ function TaskCard({ task }) {
     <Tooltip title="click to view task detail" placement="top">
       <Link
         variant="subtitle2"
+        underline="none"
         sx={{ fontWeight: 600 }}
         component={RouterLink}
         to={`/task/${_id}`}

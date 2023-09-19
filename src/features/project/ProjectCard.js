@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, Link, Typography, styled } from "@mui/material";
+import { Box, Card, Link, Tooltip, Typography, styled } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -34,38 +34,45 @@ const Heading = styled("h6")(({ theme }) => ({
 function ProjectCard({ project }) {
   const { _id, title, description } = project;
   return (
-    <StyledCard elevation={5}>
-      <ContentBox>
-        <Box ml="12px">
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography
-              variant="body2"
-              sx={{ color: "text.secondary" }}
-              noWrap
-              mr={1}
-            >
-              {"Title:"}
-            </Typography>
-            <Link
-              variant="h6"
-              sx={{ fontWeight: 600 }}
-              component={RouterLink}
-              to={`/project/${_id}`}
-            >
-              <Typography>{title}</Typography>
-            </Link>
-          </Box>
+    <Tooltip title="click to view project info" placement="top">
+      <Link
+        variant="h6"
+        underline="none"
+        sx={{ fontWeight: 600 }}
+        component={RouterLink}
+        to={`/project/${_id}`}
+      >
+        <StyledCard elevation={5}>
+          <ContentBox>
+            <Box ml="12px">
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary" }}
+                  noWrap
+                  mr={1}
+                >
+                  {"Title:"}
+                </Typography>
+                <Typography>{title}</Typography>
+              </Box>
 
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography variant="body2" sx={{ color: "text.secondary" }} mr={1}>
-              {"Description:"}
-            </Typography>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary" }}
+                  mr={1}
+                >
+                  {"Description:"}
+                </Typography>
 
-            <Heading>{description}</Heading>
-          </Box>
-        </Box>
-      </ContentBox>
-    </StyledCard>
+                <Heading>{description}</Heading>
+              </Box>
+            </Box>
+          </ContentBox>
+        </StyledCard>
+      </Link>
+    </Tooltip>
   );
 }
 
