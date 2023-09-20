@@ -4,6 +4,7 @@ import projectReducer from "../features/project/projectSlice";
 import taskReducer from "../features/task/taskSlice";
 import userReducer from "../features/user/userSlice";
 import projectMemberReducer from "../features/projectMember/projectMemberSlice";
+import themeReducer from "../theme/themeSlice";
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   project: projectReducer,
   task: taskReducer,
   projectMember: projectMemberReducer,
+  theme: themeReducer,
 });
 
 const store = configureStore({
