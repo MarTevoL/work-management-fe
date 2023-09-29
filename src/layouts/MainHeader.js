@@ -8,9 +8,9 @@ import Toolbar from "@mui/material/Toolbar";
 import SvgIcon from "@mui/material/SvgIcon";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { ReactComponent as LogoIcon } from "../workin-logo.svg";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setDarkModeOff, setDarkModeOn } from "../theme/themeSlice";
+import { changeDarkMode } from "../theme/themeSlice";
 
 const drawerWidth = 240;
 
@@ -37,11 +37,11 @@ function MainHeader({ open, handleDrawerClose, handleDrawerOpen }) {
   const dispatch = useDispatch();
 
   const setOn = () => {
-    dispatch(setDarkModeOn());
+    dispatch(changeDarkMode({ isDarkMode: true }));
   };
 
   const setOff = () => {
-    dispatch(setDarkModeOff());
+    dispatch(changeDarkMode({ isDarkMode: false }));
   };
 
   return (
@@ -61,7 +61,7 @@ function MainHeader({ open, handleDrawerClose, handleDrawerOpen }) {
         <SvgIcon component={LogoIcon} inheritViewBox />
 
         <Box sx={{ flexGrow: 1 }} display="flex" justifyContent="flex-end">
-          {themeState.darkMode ? (
+          {themeState.isDarkMode ? (
             <IconButton onClick={setOff}>
               <DarkModeIcon />
             </IconButton>
