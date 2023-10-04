@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Card, Link, Tooltip, Typography, styled } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const StyledCard = styled(Card)(({ theme }) => ({
   display: "flex",
@@ -29,13 +30,7 @@ function ProjectCard({ project }) {
   const { _id, title, description } = project;
   return (
     <Tooltip title="click to view project info" placement="top">
-      <Link
-        variant="h6"
-        underline="none"
-        sx={{ fontWeight: 600 }}
-        component={RouterLink}
-        to={`/project/${_id}`}
-      >
+      <Link underline="none" component={RouterLink} to={`/project/${_id}`}>
         <StyledCard elevation={5}>
           <ContentBox>
             <Box ml="12px">

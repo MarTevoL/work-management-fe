@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Box, Link, Card, CardContent, Typography } from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import { getTasks, getUserTasks } from "../task/taskSlice";
+import { Link as RouterLink } from "react-router-dom";
 
 function HomeTaskBox() {
   const { user } = useAuth();
@@ -20,15 +21,17 @@ function HomeTaskBox() {
 
   return (
     <Box>
-      <Card>
-        <CardContent>
-          {totalTasks ? (
-            <Typography>{`You have ${totalTasks} tasks`}</Typography>
-          ) : (
-            <Typography>{`You don't have any task`}</Typography>
-          )}
-        </CardContent>
-      </Card>
+      <Link underline="none" component={RouterLink} to={`/task`}>
+        <Card>
+          <CardContent>
+            {totalTasks ? (
+              <Typography>{`You have ${totalTasks} tasks`}</Typography>
+            ) : (
+              <Typography>{`You don't have any task`}</Typography>
+            )}
+          </CardContent>
+        </Card>
+      </Link>
     </Box>
   );
 }

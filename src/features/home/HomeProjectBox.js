@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProjects } from "../project/projectSlice";
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Box, Link, Card, CardContent, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 function HomeProjectBox() {
   const { totalProjects } = useSelector((state) => state.project);
@@ -13,15 +14,17 @@ function HomeProjectBox() {
   }, [dispatch]);
   return (
     <Box>
-      <Card>
-        <CardContent>
-          {totalProjects ? (
-            <Typography>{`You have ${totalProjects} projects`}</Typography>
-          ) : (
-            <Typography>{`You don't have any project`}</Typography>
-          )}
-        </CardContent>
-      </Card>
+      <Link underline="none" component={RouterLink} to={`/project`}>
+        <Card>
+          <CardContent>
+            {totalProjects ? (
+              <Typography>{`You have ${totalProjects} projects`}</Typography>
+            ) : (
+              <Typography>{`You don't have any project`}</Typography>
+            )}
+          </CardContent>
+        </Card>
+      </Link>
     </Box>
   );
 }
