@@ -61,7 +61,7 @@ function TaskUpdateForm({ taskId }) {
         <Typography variant="subtitle1" sx={{ mb: 1 }}>
           Update Task
         </Typography>
-        {!task.assignee ? (
+        {!task?.assignee ? (
           <FSelect
             name="assignee"
             label="select a staff"

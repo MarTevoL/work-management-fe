@@ -15,13 +15,20 @@ import { getAllUsers } from "../user/userSlice";
 import TaskUpdateForm from "./TaskUpdateForm";
 import { fDate } from "../../utils/formatTime";
 import useAuth from "../../hooks/useAuth";
+import { useParams } from "react-router-dom";
+import { getTasks } from "./taskSlice";
 
-function TaskView({ taskId }) {
+function TaskView() {
+  const { taskId } = useParams();
   const { user } = useAuth();
   const { tasksById, isLoading } = useSelector((state) => state.task);
   const { userById } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTasks({ page: 1 }));
+  }, [dispatch]);
 
   useEffect(() => {
     if (user.role === "Manager") {
@@ -57,7 +64,7 @@ function TaskView({ taskId }) {
                   >
                     Title
                   </Typography>
-                  <Typography variant="h5">{task.title}</Typography>
+                  <Typography variant="h5">{task?.title}</Typography>
                 </Box>
                 <Box sx={{ flexGrow: 1 }}>
                   <Typography
@@ -68,7 +75,7 @@ function TaskView({ taskId }) {
                     Priority
                   </Typography>
                   <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                    {task.priority ? task.priority : "no priority"}
+                    {task?.priority ? task.priority : "no priority"}
                   </Typography>
                 </Box>
                 <Box sx={{ flexGrow: 1 }}>
@@ -80,7 +87,7 @@ function TaskView({ taskId }) {
                     Assignee
                   </Typography>
                   <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                    {task.assignee
+                    {task?.assignee
                       ? userById[task.assignee]?.name
                       : "no assignee"}
                   </Typography>
@@ -94,7 +101,7 @@ function TaskView({ taskId }) {
                     Due Date
                   </Typography>
                   <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                    {task.dueDate ? fDate(task.dueDate) : "no dueDate"}
+                    {task?.dueDate ? fDate(task.dueDate) : "no dueDate"}
                   </Typography>
                 </Box>
               </Stack>
@@ -108,7 +115,7 @@ function TaskView({ taskId }) {
               <Card>
                 <CardContent>
                   <Typography variant="h6" component="div">
-                    {task.description}
+                    {task?.description}
                   </Typography>
                 </CardContent>
               </Card>
