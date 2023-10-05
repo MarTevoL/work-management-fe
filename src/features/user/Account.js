@@ -1,6 +1,7 @@
 import { Container, Grid, Paper } from "@mui/material";
 import React from "react";
 import ChangePass from "./ChangePass";
+import InviteUser from "./InviteUser";
 
 function Account() {
   return (
@@ -16,6 +17,19 @@ function Account() {
             }}
           >
             <ChangePass />
+          </Paper>
+        </Grid>
+
+        <Grid item xs={12} md={6} lg={6}>
+          <Paper
+            sx={{
+              p: 2,
+              display: "flex",
+              flexDirection: "column",
+              height: 340,
+            }}
+          >
+            <InviteUser />
           </Paper>
         </Grid>
       </Grid>

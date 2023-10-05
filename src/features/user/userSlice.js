@@ -39,6 +39,10 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
     },
+    sendInvitationSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+    },
   },
 });
 
@@ -52,6 +56,22 @@ export const getAllUsers = () => async (dispatch) => {
     dispatch(slice.actions.hasError(error.message));
   }
 };
+
+export const sendInvitation =
+  ({ email }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      await apiService.post(`/users/invitation`, {
+        email,
+      });
+      dispatch(slice.actions.sendInvitationSuccess());
+      toast.success("Send invitation successfully");
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+      toast.error(error.message);
+    }
+  };
 
 export const updateCurrentUserPassword =
   ({ oldPass, password, passwordConfirm }) =>
