@@ -5,13 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import {
-  Box,
-  IconButton,
-  InputAdornment,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { sendInvitation } from "./userSlice";
 
 const defaultValues = {
@@ -23,7 +17,10 @@ const yupSchema = Yup.object().shape({
 });
 
 function InviteUser() {
+  const { isLoading } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
+
   const methods = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues,
@@ -57,8 +54,7 @@ function InviteUser() {
             type="submit"
             variant="outlined"
             size="small"
-            // loading={isSubmitting || isLoading}
-            loading={isSubmitting}
+            loading={isSubmitting || isLoading}
           >
             Send
           </LoadingButton>

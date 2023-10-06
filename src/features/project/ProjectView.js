@@ -8,7 +8,7 @@ import { getProjects } from "./projectSlice";
 
 function ProjectView() {
   const { projectId } = useParams();
-  const { projectsById, isLoading } = useSelector((state) => state.project);
+  const { projectsById } = useSelector((state) => state.project);
 
   const dispatch = useDispatch();
   const project = projectsById[projectId];

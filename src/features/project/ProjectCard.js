@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Card, Link, Tooltip, Typography, styled } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const StyledCard = styled(Card)(({ theme }) => ({
   display: "flex",
